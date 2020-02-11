@@ -22,12 +22,11 @@ namespace InternetData
 
             // Use the HttpClient to send the request message to the remote server.
             // The result, is a Response message which contains the data you requested.
-            HttpResponseMessage response = client.SendAsync(request).Result;
-
+            HttpResponseMessage response = client.SendAsync(request).Result; //sends this to the url and then gets response "(request)" and puts that in for response
             // Since the data is in JSON format, we use a DataContractJsonSerializer to pull the data out of that object.
             // the JsonSerializer takes a DataType as its input.  in this case, we expect the response to be a List of Strings.
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<string>));
-
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<string>)); //magic box that takes in json data and gives an object, serialize means convert to text that can be sent over the internet or sent somewhere
+            //                                                  constrtuctor   type of data it gets:list of strings
             // Make sure the response is actually there and not a failed request.
             if (response.IsSuccessStatusCode)
             {
@@ -60,11 +59,11 @@ namespace InternetData
 
             //Console.WriteLine(example);
 
-            //GetRonSwansonQuotes();
+            GetRonSwansonQuotes();
 
-            WeatherForcast forcast = Weather.GetWeatherForcast();
+           // WeatherForcast forcast = Weather.GetWeatherForcast(); i dont want the weather so i commented this line out 
 
-            Console.WriteLine(forcast);
+           // Console.WriteLine(forcast);
 
             Console.WriteLine("\nDone!");
         }
