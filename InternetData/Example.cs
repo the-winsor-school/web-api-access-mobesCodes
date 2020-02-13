@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
-
+using System.Runtime.Serialization.Json; //have to go references add reference 
+// this code translates json code on haiku into c sharp
 
 /*
   JSON (Java Script Object Notation)
@@ -11,10 +11,8 @@ using System.Runtime.Serialization.Json;
   That is, values for all of the Properties of a given instance of an object.
   This representation tells us only the structure of the Properties of the class,
   and nothing about the Behaviors that the class might have.
-
   This notation also need not be a /complete/ inventory of all of the possible
   properties (as we will see with the results of API calls)
-
   */
 
 namespace InternetData
@@ -43,8 +41,7 @@ namespace InternetData
         [DataMember]
         public Contact contact;
 
-        [DataMember(Name ="class-list")]
-        public List<string> classes;
+        
 
         #endregion // Properties
 
@@ -71,9 +68,9 @@ namespace InternetData
         public string ListClasses()
         {
             string output = "";
-            if (classes != null)
+            if (contact.classes != null)
             {
-                foreach (string cl in classes)
+                foreach (string cl in contact.classes)
                 {
                     output = string.Format("{0}\n{1}", output, cl);
                 }
@@ -90,7 +87,7 @@ namespace InternetData
         {
             // Prepare to read the Example.json
             // FileStream is the object that we use to acomplish this task
-            FileStream file = new FileStream("/Users/jcox/Desktop/Example.json", FileMode.Open);
+            FileStream file = new FileStream("/Users/mayabodick/Desktop/Example.txt", FileMode.Open); //find the file "example.txt" on my comp
 
             // In order to read the JSON we need to use a JSON Serializer object.
             // Generally, serializers are used to convert an object from computer
@@ -99,7 +96,7 @@ namespace InternetData
 
             // Now, we use the serializer object to Read the text file and convert it
             // into an Instance of the Example class.
-            Example example = (Example)serializer.ReadObject(file);
+            Example example = (Example)serializer.ReadObject(file); //tells serializer to read the object in the file and call it example 
 
             // Give that example back to the user who asked for it.
             return example;
@@ -126,6 +123,9 @@ namespace InternetData
 
         [DataMember]
         public Room office;
+
+        [DataMember(Name = "class-list")] //can't put dashes into a name so in json it will call it classes in this code 
+        public List<string> classes;
 
         /// <summary>
         /// Text output format.
